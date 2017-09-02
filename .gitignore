@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# ignore local cache of data
+.cache
+
+# don't track local TODO list
+TODO
