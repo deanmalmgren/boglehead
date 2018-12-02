@@ -107,4 +107,4 @@ ENV/
 TODO
 
 # don't track local data directory
-data/
+boglehead/data/
