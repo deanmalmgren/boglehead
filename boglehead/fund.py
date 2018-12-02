@@ -11,6 +11,8 @@ class Fund(object):
         self.historical_close_prices = []
         self.historical_dividends = []
 
+        self.load_history()
+
     @property
     def history_filename(self):
         this_dir = os.path.dirname(os.path.abspath(__file__))
