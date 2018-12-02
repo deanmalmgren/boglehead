@@ -105,3 +105,6 @@ ENV/
 
 # don't track local TODO list
 TODO
+
+# don't track local data directory
+data/
