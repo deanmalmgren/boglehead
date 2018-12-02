@@ -53,8 +53,7 @@ class Portfolio(object):
                 value *= 1 + self.gain(date)
             simulated_final_values.append(value)
 
-        for v in simulated_final_values:
-            print v
+        return simulated_final_values
 
 
 if __name__ == '__main__':
@@ -63,4 +62,6 @@ if __name__ == '__main__':
         [0.2, 0.4, 0.2, 0.2],
     )
 
-    portfolio.simulate(100.0)
+    simulated_final_values = portfolio.simulate(100.0)
+    for v in simulated_final_values:
+        print v
