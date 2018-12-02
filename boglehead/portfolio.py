@@ -1,3 +1,5 @@
+import random
+
 from fund import Fund
 
 
@@ -23,6 +25,36 @@ class Portfolio(object):
             g += fund.gain(date) * proportion
         return g
 
+    def simulate(self, starting_value, n_days=260*10, n_mc=1000):
+        """this is a stupid simulation that picks a random date to determine
+        gains across the portfolio, and is effectively continuously rebalanced.
+
+        run the simulation `n_mc` times over `n_days` days (market is typically
+        open ~260 days per year)
+        """
+
+        # get the universe of dates that we can work with for this portfolio.
+        # for now only use dates that have data across all funds
+        possible_dates = set(self.funds[0].historical_date_reference.keys())
+        for fund in self.funds[1:]:
+            possible_dates.intersection_update(
+                fund.historical_date_reference.keys()
+            )
+        possible_dates = list(possible_dates)
+        possible_dates.sort()
+        possible_dates = possible_dates[1:]  # HACK for Fund.gain
+
+        #
+        simulated_final_values = []
+        for mc in range(n_mc):
+            value = starting_value
+            for day in range(n_days):
+                date = random.choice(possible_dates)
+                value *= 1 + self.gain(date)
+            simulated_final_values.append(value)
+
+        for v in simulated_final_values:
+            print v
 
 
 if __name__ == '__main__':
@@ -31,4 +63,4 @@ if __name__ == '__main__':
         [0.2, 0.4, 0.2, 0.2],
     )
 
-    print portfolio.gain('2018-11-28')
+    portfolio.simulate(100.0)
