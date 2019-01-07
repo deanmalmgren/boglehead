@@ -44,7 +44,9 @@ class Portfolio(object):
         possible_dates.sort()
         possible_dates = possible_dates[1:]  # HACK for Fund.gain
 
-        #
+        # simulate gains drawn from historical results. This retains
+        # correlations across funds but does not account for day-to-day
+        # correlations
         simulated_final_values = []
         for mc in range(n_mc):
             value = starting_value
