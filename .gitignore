@@ -108,3 +108,6 @@ TODO
 
 # don't track local data directory
 boglehead/data/
+
+# don't track tmp/ directory
+/tmp/
