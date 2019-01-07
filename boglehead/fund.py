@@ -7,6 +7,8 @@ class Fund(object):
 
     def __init__(self, symbol):
         self.symbol = symbol.upper()
+        self.price = 0.0
+        self.units = 0.0
         self.historical_date_reference = {}
         self.historical_close_prices = []
         self.historical_dividends = []
@@ -39,6 +41,12 @@ class Fund(object):
             close0 = self.historical_close_prices[i-1]
         return (close1 - close0) / close0
 
+    def simulate_date(self, date):
+        """simulate the value gain based on a historical `date`"""
+        self.price = (1 + self.gain(date)) * self.price
+
+    def value(self):
+        return self.price * self.units
 
 if __name__ == '__main__':
     fund = Fund('vfinx')
