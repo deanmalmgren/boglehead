@@ -71,17 +71,29 @@ class Portfolio(object):
         possible_dates.sort()
         possible_dates = possible_dates[1:]  # HACK for Fund.gain
 
-        # simulate gains drawn from historical results. This retains
-        # correlations across funds but does not account for day-to-day
-        # correlations.
         simulated_final_values = []
         for mc in range(n_mc):
             self.initialize_fund_values(starting_value)
+
+            # # simulate gains based on historical correlations, starting from a
+            # # random date in the past
+            # i = random.randint(0, len(possible_dates) - 1 - n_days)
+            # dates = possible_dates[i:i+n_days]
+            # assert len(dates) == n_days
+            # for day, date in enumerate(dates):
+            #     value = self.simulate_date(date)
+            #     if rebalance_frequency and (day+1) % rebalance_frequency == 0:
+            #         self.rebalance()
+
+            # simulate gains drawn from historical results. This retains
+            # correlations across funds but does not account for day-to-day
+            # correlations.
             for day in range(n_days):
                 date = random.choice(possible_dates)
                 value = self.simulate_date(date)
                 if rebalance_frequency and (day+1) % rebalance_frequency == 0:
                     self.rebalance()
+
             simulated_final_values.append(value)
 
         return simulated_final_values
