@@ -51,7 +51,7 @@ class Portfolio(object):
             fund.units = fund.units - delta_value / fund.value()
 
     def simulate(self, starting_value, n_days=260*10, n_mc=1000,
-                 rebalance_frequency=260/4):
+                 rebalance_frequency=260):
         """this is a stupid simulation that picks a random date to determine
         gains across the portfolio, and is effectively continuously rebalanced.
 
