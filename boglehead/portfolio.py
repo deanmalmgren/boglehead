@@ -11,8 +11,10 @@ class Portfolio(object):
 
         if len(self.funds) != len(self.proportions):
             raise IndexError('funds and proportions must be same length')
-        if sum(proportion_list) != 1.0:
-            raise ValueError('proportions should add to 1')
+        if abs(sum(proportion_list) - 1.0) > 0.001:
+            raise ValueError(
+                'proportions should add to 1, not %0.6f' % sum(proportion_list)
+            )
 
         for i, fund in enumerate(self.funds):
             if not isinstance(fund, Fund):
