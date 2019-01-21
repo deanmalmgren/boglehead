@@ -2,6 +2,8 @@ import random
 
 from fund import Fund
 
+EPSILON = 0.001
+
 
 class Portfolio(object):
 
@@ -11,7 +13,7 @@ class Portfolio(object):
 
         if len(self.funds) != len(self.proportions):
             raise IndexError('funds and proportions must be same length')
-        if abs(sum(proportion_list) - 1.0) > 0.001:
+        if abs(sum(proportion_list) - 1.0) > EPSILON:
             raise ValueError(
                 'proportions should add to 1, not %0.6f' % sum(proportion_list)
             )
@@ -50,7 +52,10 @@ class Portfolio(object):
 
             # when it is overvalued relative to the portfolio, sell it. when it
             # is undervalued, buy it
-            fund.units = fund.units - delta_value / fund.value()
+            fund.units *= 1.0 - delta_value / fund.value()
+
+        if abs(value - self.value()) > EPSILON:
+            raise ValueError("#rebalancefail")
 
     def simulate(self, starting_value, n_days=260*10, n_mc=1000,
                  rebalance_frequency=260):
