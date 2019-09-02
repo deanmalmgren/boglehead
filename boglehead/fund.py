@@ -72,7 +72,7 @@ ALL_FUNDS = [
 
 class Fund(object):
 
-    def __init__(self, symbol):
+    def __init__(self, symbol, load_history=True):
         self.symbol = symbol.upper()
         self.price = 0.0
         self.units = 0.0
@@ -80,7 +80,8 @@ class Fund(object):
         self.historical_close_prices = []
         self.historical_dividends = []
 
-        self.load_history()
+        if load_history:
+            self.load_history()
 
     @property
     def history_filename(self):
