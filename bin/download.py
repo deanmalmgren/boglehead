@@ -6,10 +6,10 @@ import datetime
 
 import yfinance
 
-from boglehead.fund import ALL_FUNDS, Fund
+from boglehead.fund import ALL_SYMBOLS, Fund
 
 
-for symbol, inception_date in ALL_FUNDS:
+for symbol in ALL_SYMBOLS:
     print(symbol)
     fund = Fund(symbol, load_history=False)
     data = yfinance.download(tickers=symbol, period="max")

@@ -4,7 +4,7 @@ import csv
 
 
 # all index funds from https://investor.vanguard.com/mutual-funds/list
-ALL_FUNDS = [
+ALL_SYMBOLS = [
     "VFIAX",
     "VBIAX",
     "VTMGX",
