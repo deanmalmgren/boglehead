@@ -1,6 +1,6 @@
 import random
 
-from fund import Fund
+from .fund import Fund
 
 EPSILON = 0.001
 
