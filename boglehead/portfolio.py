@@ -44,6 +44,32 @@ class Portfolio(object):
             fund.simulate_date(date)
         return self.value()
 
+    def sell(self, sell_value):
+        """Sell `value` off from assets in a rebalanced way"""
+        self.rebalance()
+        current_value = self.value()
+        if sell_value > current_value:
+            raise ValueError("can't sell that much")
+        sell_ratio = sell_value / current_value
+        for fund in self.funds:
+            fund.units *= 1 - sell_ratio
+        if abs(self.value() - (current_value - sell_value)) > EPSILON:
+            raise ValueError("#sellfail")
+        return self.value()
+
+    def buy(self, buy_value):
+        """Buy `value` from assets in a rebalanced way"""
+        self.rebalance()
+        current_value = self.value()
+        if buy_value < 0:
+            raise ValueError("can't buy negative, silly")
+        buy_ratio = (buy_value + current_value) / current_value
+        for fund in self.funds:
+            fund.units *= buy_ratio
+        if abs(self.value() - (current_value + buy_value)) > EPSILON:
+            raise ValueError("#buyfail")
+        return self.value()
+
     def rebalance(self):
         """rebalance the portfolio, without regard for tax consequences"""
         value = self.value()
