@@ -3,6 +3,73 @@ import os
 import csv
 
 
+# all index funds from https://investor.vanguard.com/mutual-funds/list
+ALL_FUNDS = [
+    "VFIAX",
+    "VBIAX",
+    "VTMGX",
+    "VDADX",
+    "VGAVX",
+    "VEMAX",
+    "VEUSX",
+    "VEXAX",
+    "VFWAX",
+    "VFSAX",
+    "VFTAX",
+    "VGRLX",
+    "VIGAX",
+    "VHYAX",
+    "VBILX",
+    "VICSX",
+    "VSIGX",
+    "VIAAX",
+    "VIHAX",
+    "VLCAX",
+    "VSCGX",
+    "VASGX",
+    "VASIX",
+    "VSMGX",
+    "VBLAX",
+    "VLTCX",
+    "VLGSX",
+    "VMGMX",
+    "VIMAX",
+    "VMVAX",
+    "VMBSX",
+    "VPADX",
+    "VGSLX",
+    "VBIRX",
+    "VSCSX",
+    "VTAPX",
+    "VSBSX",
+    "VSGAX",
+    "VSMAX",
+    "VSIAX",
+    "VTXVX",
+    "VTWNX",
+    "VTTVX",
+    "VTHRX",
+    "VTTHX",
+    "VFORX",
+    "VTIVX",
+    "VFIFX",
+    "VFFVX",
+    "VTTSX",
+    "VLXVX",
+    "VTINX",
+    "VTEAX",
+    "VTMFX",
+    "VTCLX",
+    "VTMSX",
+    "VBTLX",
+    "VTABX",
+    "VTIAX",
+    "VTSAX",
+    "VTWAX",
+    "VVIAX",
+]
+
+
 class Fund(object):
 
     def __init__(self, symbol):
@@ -47,6 +114,7 @@ class Fund(object):
 
     def value(self):
         return self.price * self.units
+
 
 if __name__ == '__main__':
     fund = Fund('vfinx')
