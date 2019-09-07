@@ -70,6 +70,13 @@ ALL_SYMBOLS = [
 ]
 
 
+def load_all_funds():
+    all_funds = []
+    for symbol in ALL_SYMBOLS:
+        all_funds.append(Fund(symbol))
+    return all_funds
+
+
 class Fund(object):
 
     def __init__(self, symbol, load_history=True):
@@ -100,6 +107,9 @@ class Fund(object):
                 self.historical_date_reference[date] = \
                     len(self.historical_close_prices)
                 self.historical_close_prices.append(close_price)
+
+    def min_date(self):
+        return min(self.historical_date_reference.keys())
 
     def gain(self, date):
         """daily gain percentage"""

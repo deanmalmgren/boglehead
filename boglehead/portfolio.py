@@ -1,4 +1,5 @@
 import random
+import json
 
 from .fund import Fund
 
@@ -22,6 +23,14 @@ class Portfolio(object):
             if not isinstance(fund, Fund):
                 fund = Fund(fund)
                 self.funds[i] = fund
+
+    def to_json_str(self):
+        """Capture Portfolio as a json string
+        """
+        data = {}
+        for i in range(len(self.funds)):
+            data[self.funds[i].symbol] = self.proportions[i]
+        return json.dumps(data)
 
     def initialize_fund_values(self, value):
         """Assign value to specific funds according to the specified
@@ -140,4 +149,4 @@ if __name__ == '__main__':
 
     simulated_final_values = portfolio.simulate(100.0)
     for v in simulated_final_values:
-        print v
+        print(v)
