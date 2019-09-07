@@ -2,6 +2,7 @@ import sys
 import os
 import csv
 
+import numpy
 
 # all index funds from https://investor.vanguard.com/mutual-funds/list
 ALL_SYMBOLS = [
@@ -125,6 +126,25 @@ class Fund(object):
 
     def value(self):
         return self.price * self.units
+
+    def correlation(self, other):
+        if not isinstance(other, Fund):
+            raise TypeError("can only calculate correlations on another Fund")
+
+        dates = set(self.historical_date_reference.keys())
+        other_dates = set(other.historical_date_reference.keys())
+        dates.intersection_update(other_dates)
+        dates = list(dates)
+
+        self_prices = []
+        other_prices = []
+        for date in sorted(dates):
+            i = self.historical_date_reference[date]
+            self_prices.append(self.historical_close_prices[i])
+            i = other.historical_date_reference[date]
+            other_prices.append(other.historical_close_prices[i])
+        c = numpy.corrcoef(self_prices, other_prices)
+        return c[0,1]
 
 
 if __name__ == '__main__':
